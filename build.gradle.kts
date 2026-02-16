@@ -3,6 +3,7 @@ plugins {
     jacoco
     id("org.springframework.boot") version "3.2.2"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -44,6 +45,15 @@ dependencies {
     testImplementation("io.github.bonigarcia:webdrivermanager:$webdrivermanagerVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:${junitJupiterVersion}")
 }
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "your_project_key")
+        property("sonar.organization", "your_org")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
+
 
 tasks.register<Test>("unitTest") {
     description = "Runs unit tests."
