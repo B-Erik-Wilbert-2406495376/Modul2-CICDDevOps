@@ -121,4 +121,64 @@ class ProductRepositoryTest {
 
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testEditProductFailed() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+
+        productRepository.create(product);
+
+        Product editedProduct = new Product();
+        editedProduct.setProductId("hello-world");
+        editedProduct.setProductName("Sampo Cap Asep");
+        editedProduct.setProductQuantity(50);
+
+        Product editedProductCheck = productRepository.edit(editedProduct);
+
+        assertNull(editedProductCheck);
+    }
+
+    @Test
+    void testDeleteProductFailed() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        boolean deleteProductCheck = productRepository.delete("hello-world");
+
+        assertFalse(deleteProductCheck);
+    }
+
+    @Test
+    void testfindById() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+
+        productRepository.create(product);
+
+        Product productFound = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
+
+        assertEquals(productFound, product);
+    }
+
+    @Test
+    void testfindByIdNotFound() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+
+        productRepository.create(product);
+
+        Product productFound = productRepository.findById("hello-world");
+
+        assertNull(productFound);
+    }
 }
