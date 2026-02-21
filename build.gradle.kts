@@ -48,8 +48,8 @@ dependencies {
 
 sonarqube {
     properties {
-        property("sonar.projectKey", "your_project_key")
-        property("sonar.organization", "your_org")
+        property("sonar.projectKey", "B-Erik-Wilbert-2406495376_Modul2-CICDDevOps")
+        property("sonar.organization", "b-erik-wilbert-2406495376")
         property("sonar.host.url", "https://sonarcloud.io")
     }
 }
