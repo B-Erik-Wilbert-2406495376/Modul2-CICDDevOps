@@ -51,6 +51,7 @@ sonarqube {
         property("sonar.projectKey", "B-Erik-Wilbert-2406495376_Modul2-CICDDevOps")
         property("sonar.organization", "b-erik-wilbert-2406495376")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
 
@@ -87,4 +88,9 @@ tasks.test {
 
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
 }
