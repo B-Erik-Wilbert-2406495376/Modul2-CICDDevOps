@@ -19,5 +19,4 @@ COPY --from=builder --chown=${USER_UID}:${USER_GID} /src/advshop/build/libs/*.ja
 
 EXPOSE 8080
 
-ENTRYPOINT ["java"]
-CMD ["-jar", "app.jar"]
+ENTRYPOINT ["java","-Xmx300m","-jar","app.jar"]
