@@ -1,3 +1,5 @@
+App URL: [url](https://modul2-cicddevops-production.up.railway.app/product/list)
+
 # Reflection
 1. Issue yang saya temukan dengan sonarcloud adalah meggunakan temporary variable yang tidak memiliki manfaat jelas sehingga saya langsung return hasil operasinya tanpa letak di temporary variable untuk operasi mudah.
 2. Ya, implementasi saat ini sudah termasuk Continuous Integration (CI) dan Continuous Deployment (CD). Setiap push ke repository secara otomatis menjalankan workflow GitHub Actions untuk melakukan build dan menjalankan seluruh test. Aplikasi juga otomatis ter-deploy ke PaaS tanpa proses manual setiap kali terdapat perubahan pada branch yang dipantau. Selain itu, pipeline yang digunakan juga membantu menjaga kualitas code secara konsisten karena dilengkapi dengan proses code scanning.
