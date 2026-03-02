@@ -1,9 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import id.ac.ui.cs.advprog.eshop.model.Car;
+
+import java.util.*;
 
 public abstract class RepositoryImpl<T> implements Repository<T, String> {
 
@@ -31,10 +30,5 @@ public abstract class RepositoryImpl<T> implements Repository<T, String> {
     @Override
     public T findById(String id) {
         return storage.get(id);
-    }
-
-    @Override
-    public List<T> findAll() {
-        return new ArrayList<>(storage.values());
     }
 }

@@ -1,8 +1,8 @@
-package id.ac.ui.cs.advprog.eshop.repository;
-import java.util.Iterator;
+package id.ac.ui.cs.advprog.eshop.service;
+
 import java.util.List;
 
-public interface Repository<T, ID> {
+public interface CrudService<T, ID> {
     T create(T entity);
     T update(ID id, T entity);
     void delete(ID id);
