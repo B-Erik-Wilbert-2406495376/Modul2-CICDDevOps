@@ -29,26 +29,26 @@ class ProductServiceImplTest {
     @BeforeEach
     void setUp() {
         product = new Product();
-        product.setProductName("Sampo Cap Bambang");
-        product.setProductQuantity(100);
+        product.setName("Sampo Cap Bambang");
+        product.setQuantity(100);
     }
 
     @Test
     void testCreateProduct() {
         Product createdProduct = productService.create(product);
 
-        assertNotNull(createdProduct.getProductId());
+        assertNotNull(createdProduct.getId());
         verify(productRepository, times(1)).create(product);
     }
 
     @Test
     void testEditProduct() {
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setName("test");
 
-        Product editedProduct = productService.edit(product);
+        Product editedProduct = productService.update(product.getId(), product);
 
         assertEquals(product, editedProduct);
-        verify(productRepository, times(1)).edit(product);
+        verify(productRepository, times(1)).update(product.getId(), product);
     }
 
     @Test
@@ -64,10 +64,10 @@ class ProductServiceImplTest {
     @Test
     void testFindAllProducts() {
         Product product1 = new Product();
-        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
 
         Product product2 = new Product();
-        product2.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product2.setId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
 
         List<Product> productList = Arrays.asList(product1, product2);
         Iterator<Product> iterator = productList.iterator();
@@ -82,7 +82,7 @@ class ProductServiceImplTest {
 
     @Test
     void testFindById() {
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
 
         when(productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6")).thenReturn(product);
 

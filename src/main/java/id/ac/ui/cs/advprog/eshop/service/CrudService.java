@@ -6,7 +6,7 @@ import java.util.List;
 public interface CrudService<T, ID> {
     T create(T entity);
     T update(ID id, T entity);
-    void delete(ID id);
+    boolean delete(ID id);
     T findById(ID id);
     List<T> findAll();
 }

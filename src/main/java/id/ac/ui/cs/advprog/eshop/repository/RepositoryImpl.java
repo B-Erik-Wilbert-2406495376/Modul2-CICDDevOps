@@ -23,8 +23,8 @@ public abstract class RepositoryImpl<T> implements Repository<T, String> {
     }
 
     @Override
-    public void delete(String id) {
-        storage.remove(id);
+    public boolean delete(String id) {
+        return storage.remove(id) != null;
     }
 
     @Override

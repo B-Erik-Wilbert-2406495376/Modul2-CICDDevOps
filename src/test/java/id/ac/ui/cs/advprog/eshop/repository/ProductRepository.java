@@ -82,7 +82,7 @@ class ProductRepositoryTest {
         editedProduct.setName("Sampo Cap Asep");
         editedProduct.setQuantity(50);
 
-        productRepository.edit(editedProduct);
+        productRepository.update(editedProduct.getId(), editedProduct);
 
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
@@ -132,7 +132,7 @@ class ProductRepositoryTest {
         editedProduct.setName("Sampo Cap Asep");
         editedProduct.setQuantity(50);
 
-        Product editedProductCheck = productRepository.edit(editedProduct);
+        Product editedProductCheck = productRepository.update(editedProduct.getId(), editedProduct);
 
         assertNull(editedProductCheck);
     }
