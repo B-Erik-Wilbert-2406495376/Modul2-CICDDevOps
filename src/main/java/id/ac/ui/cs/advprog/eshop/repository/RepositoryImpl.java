@@ -31,4 +31,9 @@ public abstract class RepositoryImpl<T> implements Repository<T, String> {
     public T findById(String id) {
         return storage.get(id);
     }
+
+    @Override
+    public Iterator<T> findAll() {
+        return storage.values().iterator();
+    }
 }

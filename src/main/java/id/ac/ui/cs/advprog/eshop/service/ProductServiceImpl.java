@@ -43,4 +43,16 @@ public class ProductServiceImpl implements ProductService {
     public Product findById(String id) {
         return productRepository.findById(id);
     }
+
+    @Override
+    public List<Product> findAll() {
+        Iterator<Product> iterator = productRepository.findAll();
+        List<Product> list = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            list.add(iterator.next());
+        }
+
+        return list;
+    }
 }

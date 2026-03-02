@@ -7,4 +7,5 @@ public interface Repository<T, ID> {
     T update(ID id, T entity);
     void delete(ID id);
     T findById(ID id);
+    Iterator<T> findAll();
 }

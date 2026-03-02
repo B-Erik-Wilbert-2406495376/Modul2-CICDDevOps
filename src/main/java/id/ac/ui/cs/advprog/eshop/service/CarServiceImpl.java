@@ -40,4 +40,16 @@ public class CarServiceImpl implements CarService{
     public Car findById(String id) {
         return carRepository.findById(id);
     }
+
+    @Override
+    public List<Car> findAll() {
+        Iterator<Car> iterator = carRepository.findAll();
+        List<Car> list = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            list.add(iterator.next());
+        }
+
+        return list;
+    }
 }
