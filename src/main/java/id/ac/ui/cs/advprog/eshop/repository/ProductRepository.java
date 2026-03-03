@@ -14,6 +14,4 @@ public class ProductRepository extends RepositoryImpl<Product>{
     protected String getId(Product product) {
         return product.getId();
     }
-
-
 }

@@ -26,12 +26,15 @@ public class ProductServiceImpl implements ProductService {
         if (product.getId() == null) {
             product.setId(UUID.randomUUID().toString());
         }
-        return productRepository.create(product);
+
+        productRepository.create(product);
+        return product;
     }
 
     @Override
-    public Product update(String id, Product product) {
-        return productRepository.update(id, product);
+    public Product update(Product product) {
+        productRepository.update(product.getId(), product);
+        return product;
     }
 
     @Override

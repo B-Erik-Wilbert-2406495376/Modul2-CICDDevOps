@@ -70,7 +70,7 @@ class ProductControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("list"));
 
-        verify(service, times(1)).update(UUID.randomUUID().toString(), any(Product.class));
+        verify(service, times(1)).update(any(Product.class));
     }
 
     @Test

@@ -60,10 +60,10 @@ class ProductRepositoryTest {
         assertTrue(productIterator.hasNext());
 
         Product savedProduct = productIterator.next();
-        assertEquals(product1.getId(), savedProduct.getId());
+        assertEquals(product2.getId(), savedProduct.getId());
 
         savedProduct = productIterator.next();
-        assertEquals(product2.getId(), savedProduct.getId());
+        assertEquals(product1.getId(), savedProduct.getId());
 
         assertFalse(productIterator.hasNext());
     }

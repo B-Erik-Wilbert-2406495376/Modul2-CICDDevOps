@@ -18,8 +18,7 @@ public abstract class RepositoryImpl<T> implements Repository<T, String> {
 
     @Override
     public T update(String id, T entity) {
-        storage.put(id, entity);
-        return entity;
+        return storage.replace(id, entity);
     }
 
     @Override

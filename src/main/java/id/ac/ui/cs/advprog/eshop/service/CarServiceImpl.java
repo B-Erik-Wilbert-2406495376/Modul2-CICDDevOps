@@ -27,8 +27,8 @@ public class CarServiceImpl implements CarService{
     }
 
     @Override
-    public Car update(String id, Car car) {
-        return carRepository.update(id, car);
+    public Car update(Car car) {
+        return carRepository.update(car.getId(), car);
     }
 
     @Override
