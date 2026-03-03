@@ -15,16 +15,16 @@
     <ul class="list-group mb-3">
         <li class="list-group-item">
             <b>Name:</b>
-            <span th:text="${product.productName}"></span>
+            <span th:text="${product.name}"></span>
         </li>
         <li class="list-group-item">
             <b>Quantity:</b>
-            <span th:text="${product.productQuantity}"></span>
+            <span th:text="${product.quantity}"></span>
         </li>
     </ul>
 
     <form th:action="@{/product/delete}" method="post">
-        <input type="hidden" name="productId" th:value="${product.productId}" />
+        <input type="hidden" name="productId" th:value="${product.id}" />
         <button type="submit" class="btn btn-danger">
             Yes, Delete
         </button>

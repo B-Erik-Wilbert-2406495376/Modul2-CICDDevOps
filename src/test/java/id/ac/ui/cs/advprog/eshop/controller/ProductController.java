@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,8 +50,8 @@ class ProductControllerTest {
     @Test
     void testEditProductPage() throws Exception {
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setName("Sampo Cap Bambang");
 
         when(service.findById("eb558e9f-1c39-460e-8860-71af6af63bd6")).thenReturn(product);
 
@@ -69,14 +70,14 @@ class ProductControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("list"));
 
-        verify(service, times(1)).edit(any(Product.class));
+        verify(service, times(1)).update(any(Product.class));
     }
 
     @Test
     void testDeleteProductPage() throws Exception {
         Product product = new Product();
-        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
+        product.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setName("Sampo Cap Bambang");
 
         when(service.findById("eb558e9f-1c39-460e-8860-71af6af63bd6")).thenReturn(product);
 
@@ -99,12 +100,12 @@ class ProductControllerTest {
     @Test
     void testProductListPage() throws Exception {
         Product product1 = new Product();
-        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product1.setProductName("Sampo Cap Bambang");
+        product1.setId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setName("Sampo Cap Bambang");
 
         Product product2 = new Product();
-        product2.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
-        product2.setProductName("Sampo Cap Asep");
+        product2.setId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product2.setName("Sampo Cap Asep");
 
         List<Product> products = Arrays.asList(product1, product2);
 

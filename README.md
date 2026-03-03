@@ -1,4 +1,4 @@
-App URL: [url](https://modul2-cicddevops-production.up.railway.app/product/list)
+Deployment URL: [url](https://modul2-cicddevops-production.up.railway.app)
 
 # Reflection
 1. Issue yang saya temukan dengan sonarcloud adalah meggunakan temporary variable yang tidak memiliki manfaat jelas sehingga saya langsung return hasil operasinya tanpa letak di temporary variable untuk operasi mudah.
