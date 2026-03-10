@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payment Detail</title>
+</head>
+<body>
+
+<h2>Search Payment</h2>
+
+<form th:action="@{/payment/detail}" method="get">
+
+    Payment ID:
+    <input type="text" name="paymentId"/>
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+</body>
+</html>

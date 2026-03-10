@@ -15,6 +15,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(OrderController.class)
@@ -50,7 +51,7 @@ class OrderControllerTest {
         orders.add(mock(Order.class));
 
         when(orderService.findAllByAuthor("Safira")).thenReturn(orders);
-        mockMvc.perform(get("/order/history")
+        mockMvc.perform(post("/order/history")
                         .param("author","Safira"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("OrderHistory"))

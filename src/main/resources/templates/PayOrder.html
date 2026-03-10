@@ -1,0 +1,28 @@
+<form th:action="@{/order/pay/{id}(id=${order.id})}" method="post">
+
+    Method:
+    <select name="method">
+        <option value="VOUCHER">Voucher</option>
+        <option value="BANK_TRANSFER">Bank Transfer</option>
+    </select>
+
+    <br><br>
+
+    Voucher Code:
+    <input type="text" name="voucherCode">
+
+    <br><br>
+
+    Bank Name:
+    <input type="text" name="bankName">
+
+    <br><br>
+
+    Reference Code:
+    <input type="text" name="referenceCode">
+
+    <br><br>
+
+    <button type="submit">Pay</button>
+
+</form>

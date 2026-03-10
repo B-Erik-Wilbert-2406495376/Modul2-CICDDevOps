@@ -1,17 +1,17 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Order;
+import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.service.OrderService;
 import id.ac.ui.cs.advprog.eshop.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
@@ -33,10 +33,10 @@ public class OrderController {
         return "OrderHistoryForm";
     }
 
-    @GetMapping("/history/result")
-    public String orderHistoryResult(@RequestParam String author, Model model){
+    @PostMapping("/history")
+    public String orderHistoryResult(@RequestParam String author, Model model) {
         List<Order> orders = orderService.findAllByAuthor(author);
-        model.addAttribute("orders",orders);
+        model.addAttribute("orders", orders);
 
         return "OrderHistory";
     }
@@ -46,5 +46,27 @@ public class OrderController {
         Order order = orderService.findById(orderId);
         model.addAttribute("order",order);
         return "PayOrder";
+    }
+
+    @PostMapping("/pay/{orderId}")
+    public String createPayment( @PathVariable String orderId, @RequestParam String method, @RequestParam(required = false) String voucherCode, @RequestParam(required = false) String bankName, @RequestParam(required = false) String referenceCode, Model model){
+        Order order = orderService.findById(orderId);
+
+        Map<String,String> paymentData = new HashMap<>();
+
+        if(voucherCode != null){
+            paymentData.put("voucherCode", voucherCode);
+        }
+        if(bankName != null){
+            paymentData.put("bankName", bankName);
+        }
+        if(referenceCode != null){
+            paymentData.put("referenceCode", referenceCode);
+        }
+
+        Payment payment = paymentService.addPayment(order, method, paymentData);
+        model.addAttribute("paymentId", payment.getId());
+
+        return "PaymentCreated";
     }
 }

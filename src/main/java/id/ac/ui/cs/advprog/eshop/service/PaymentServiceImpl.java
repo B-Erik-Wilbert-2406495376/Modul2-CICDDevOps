@@ -21,11 +21,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment addPayment(Order order, String method, Map<String,String> paymentData){
-        Payment payment = new Payment(
-                UUID.randomUUID().toString(),
-                method,
-                paymentData
-        );
+        Payment payment = new Payment(UUID.randomUUID().toString(), method, paymentData);
 
         if(validatePayment(method,paymentData)){
             payment.setStatus(PaymentStatus.ACCEPTED.getValue());
@@ -39,10 +35,7 @@ public class PaymentServiceImpl implements PaymentService {
     private boolean validatePayment(String method, Map<String,String> data){
         if(method.equals("VOUCHER")){
             String code = data.get("voucherCode");
-            return code != null
-                    && code.length() == 16
-                    && code.startsWith("ESHOP")
-                    && code.replaceAll("[^0-9]","").length() == 8;
+            return code != null && code.length() == 16 && code.startsWith("ESHOP") && code.replaceAll("[^0-9]","").length() == 8;
         }
         if(method.equals("BANK_TRANSFER")){
             String bank = data.get("bankName");
