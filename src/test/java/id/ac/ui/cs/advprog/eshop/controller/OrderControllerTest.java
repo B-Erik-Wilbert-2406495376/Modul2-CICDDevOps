@@ -1,0 +1,93 @@
+package id.ac.ui.cs.advprog.eshop.controller;
+
+import id.ac.ui.cs.advprog.eshop.model.Order;
+import id.ac.ui.cs.advprog.eshop.model.Payment;
+import id.ac.ui.cs.advprog.eshop.service.OrderService;
+import id.ac.ui.cs.advprog.eshop.service.PaymentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WebMvcTest(OrderController.class)
+class OrderControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private OrderService orderService;
+
+    @MockBean
+    private PaymentService paymentService;
+
+    @Test
+    void testCreateOrderPage() throws Exception {
+        mockMvc.perform(get("/order/create"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("CreateOrder"));
+    }
+
+    @Test
+    void testOrderHistoryForm() throws Exception {
+        mockMvc.perform(get("/order/history"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("OrderHistoryForm"));
+    }
+
+    @Test
+    void testOrderHistoryResult() throws Exception {
+        List<Order> orders = new ArrayList<>();
+        orders.add(mock(Order.class));
+        orders.add(mock(Order.class));
+
+        when(orderService.findAllByAuthor("Safira")).thenReturn(orders);
+        mockMvc.perform(post("/order/history")
+                        .param("author","Safira"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("OrderHistory"))
+                .andExpect(model().attributeExists("orders"))
+                .andExpect(model().attribute("orders", hasSize(2)));
+    }
+
+    @Test
+    void testPayOrderPage() throws Exception {
+        Order order = mock(Order.class);
+
+        when(orderService.findById("123")).thenReturn(order);
+        mockMvc.perform(get("/order/pay/123"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("PayOrder"))
+                .andExpect(model().attributeExists("order"));
+    }
+
+    @Test
+    void testCreatePayment() throws Exception {
+        Order order = mock(Order.class);
+
+        Payment payment = mock(Payment.class);
+
+        when(orderService.findById("123")).thenReturn(order);
+        when(paymentService.addPayment(eq(order), eq("VOUCHER"), any()))
+                .thenReturn(payment);
+
+        when(payment.getId()).thenReturn("payment-1");
+
+        mockMvc.perform(post("/order/pay/123")
+                        .param("method","VOUCHER")
+                        .param("voucherCode","ESHOP12345678"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("PaymentCreated"))
+                .andExpect(model().attributeExists("paymentId"));
+    }
+}
