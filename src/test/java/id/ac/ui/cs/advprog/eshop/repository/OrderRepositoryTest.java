@@ -40,7 +40,7 @@ public class OrderRepositoryTest {
         Order order = orders.get(1);
         Order result = orderRepository.save(order);
 
-        Order findResult = orderRepositoryr.findById(orders.get(1).getId());
+        Order findResult = orderRepository.findById(orders.get(1).getId());
         assertEquals(order.getId(), result.getId());
         assertEquals(order.getId(), findResult.getId());
         assertEquals(order.getOrderTime(), findResult.getOrderTime());
@@ -55,7 +55,7 @@ public class OrderRepositoryTest {
         Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), OrderStatus.SUCCESS.getValue());
         Order result = orderRepository.save(newOrder);
 
-        Order findResult = orderRepositoryr.findById(orders.get(1).getId());
+        Order findResult = orderRepository.findById(orders.get(1).getId());
         assertEquals(order.getId(), result.getId());
         assertEquals(order.getId(), findResult.getId());
         assertEquals(order.getOrderTime(), findResult.getOrderTime());
@@ -69,7 +69,7 @@ public class OrderRepositoryTest {
             orderRepository.save(order);
         }
 
-        Order findResult = orderRepositoryr.findById(orders.get(1).getId());
+        Order findResult = orderRepository.findById(orders.get(1).getId());
         assertEquals(orders.get(1).getId(), findResult.getId());
         assertEquals(orders.get(1).getOrderTime(), findResult.getOrderTime());
         assertEquals(orders.get(1).getAuthor(), findResult.getAuthor());
@@ -82,7 +82,7 @@ public class OrderRepositoryTest {
             orderRepository.save(order);
         }
 
-        Order findResult = orderRepositoryr.findById("zczc");
+        Order findResult = orderRepository.findById("zczc");
         assertNull(findResult);
     }
 
