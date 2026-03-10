@@ -8,5 +8,5 @@ public interface OrderService {
     Order createOrder(Order order);
     Order updateStatus(String orderId, String status);
     Order findById(String orderId);
-    List<Order> findAllByAuthor(String Author);
+    List<Order> findAllByAuthor(String author);
 }
