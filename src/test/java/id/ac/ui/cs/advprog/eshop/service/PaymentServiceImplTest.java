@@ -42,9 +42,9 @@ public class PaymentServiceImplTest {
     @Test
     void testAddPaymentAccepted() {
         Order order = mock(Order.class);
-        Payment payment = payments.get(1);
 
-        doReturn(payment).when(paymentRepository).save(any(Payment.class));
+        when(paymentRepository.save(any(Payment.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
         Payment result = paymentService.addPayment(order,"VOUCHER",paymentData);
 
         verify(paymentRepository, times(1)).save(any(Payment.class));
@@ -54,11 +54,11 @@ public class PaymentServiceImplTest {
     @Test
     void testAddPaymentRejected() {
         Order order = mock(Order.class);
-        Map<String,String> invalidData = new HashMap<>();
 
+        Map<String,String> invalidData = new HashMap<>();
         invalidData.put("voucherCode","ABC");
-        Payment payment = new Payment("3","VOUCHER",invalidData);
-        doReturn(payment).when(paymentRepository).save(any(Payment.class));
+        when(paymentRepository.save(any(Payment.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
         Payment result = paymentService.addPayment(order,"VOUCHER",invalidData);
 
         verify(paymentRepository, times(1)).save(any(Payment.class));
