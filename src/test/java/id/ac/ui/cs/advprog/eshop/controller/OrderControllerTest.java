@@ -31,7 +31,6 @@ class OrderControllerTest {
 
     @Test
     void testCreateOrderPage() throws Exception {
-
         mockMvc.perform(get("/order/create"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("CreateOrder"));
@@ -39,7 +38,6 @@ class OrderControllerTest {
 
     @Test
     void testOrderHistoryForm() throws Exception {
-
         mockMvc.perform(get("/order/history"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("OrderHistoryForm"));
@@ -47,13 +45,11 @@ class OrderControllerTest {
 
     @Test
     void testOrderHistoryResult() throws Exception {
-
         List<Order> orders = new ArrayList<>();
         orders.add(mock(Order.class));
         orders.add(mock(Order.class));
 
         when(orderService.findAllByAuthor("Safira")).thenReturn(orders);
-
         mockMvc.perform(get("/order/history")
                         .param("author","Safira"))
                 .andExpect(status().isOk())
@@ -64,11 +60,9 @@ class OrderControllerTest {
 
     @Test
     void testPayOrderPage() throws Exception {
-
         Order order = mock(Order.class);
 
         when(orderService.findById("123")).thenReturn(order);
-
         mockMvc.perform(get("/order/pay/123"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("PayOrder"))
