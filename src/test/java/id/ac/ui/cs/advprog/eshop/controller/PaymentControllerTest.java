@@ -14,6 +14,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(PaymentController.class)
@@ -60,4 +61,23 @@ class PaymentControllerTest {
                 .andExpect(model().attribute("payments", hasSize(2)));
     }
 
+    @Test
+    void testAdminPaymentDetail() throws Exception {
+        Payment payment = new Payment("1","VOUCHER",null);
+        when(paymentService.getPayment("1")).thenReturn(payment);
+        mockMvc.perform(get("/payment/admin/detail/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("PaymentAdminDetail"))
+                .andExpect(model().attributeExists("payment"));
+    }
+
+    @Test
+    void testSetPaymentStatus() throws Exception {
+        Payment payment = new Payment("1","VOUCHER",null);
+        when(paymentService.getPayment("1")).thenReturn(payment);
+        mockMvc.perform(post("/payment/admin/set-status/1")
+                        .param("status","ACCEPTED"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/payment/admin/detail/1"));
+    }
 }

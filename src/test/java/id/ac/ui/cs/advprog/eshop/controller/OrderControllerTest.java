@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Order;
+import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.service.OrderService;
 import id.ac.ui.cs.advprog.eshop.service.PaymentService;
 import org.junit.jupiter.api.Test;
@@ -68,5 +69,25 @@ class OrderControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("PayOrder"))
                 .andExpect(model().attributeExists("order"));
+    }
+
+    @Test
+    void testCreatePayment() throws Exception {
+        Order order = mock(Order.class);
+
+        Payment payment = mock(Payment.class);
+
+        when(orderService.findById("123")).thenReturn(order);
+        when(paymentService.addPayment(eq(order), eq("VOUCHER"), any()))
+                .thenReturn(payment);
+
+        when(payment.getId()).thenReturn("payment-1");
+
+        mockMvc.perform(post("/order/pay/123")
+                        .param("method","VOUCHER")
+                        .param("voucherCode","ESHOP12345678"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("PaymentCreated"))
+                .andExpect(model().attributeExists("paymentId"));
     }
 }
