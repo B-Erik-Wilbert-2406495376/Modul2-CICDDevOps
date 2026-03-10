@@ -11,14 +11,15 @@ public class PaymentRepository {
     private Map<String,Payment> paymentData = new HashMap<>();
 
     public Payment save(Payment payment){
-        return null;
+        paymentData.put(payment.getId(),payment);
+        return payment;
     }
 
     public Payment findById(String id){
-        return null;
+        return paymentData.get(id);
     }
 
     public List<Payment> findAll(){
-        return null;
+        return new ArrayList<>(paymentData.values());
     }
 }
